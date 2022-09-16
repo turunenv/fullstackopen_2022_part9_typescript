@@ -1,4 +1,4 @@
-interface exerciseResult  {
+interface ExerciseResult  {
     periodLength: number,
     trainingDays: number,
     success: boolean,
@@ -8,7 +8,34 @@ interface exerciseResult  {
     average: number 
 }
 
-const calculateExercises = (exerciseHours: Array<number>, target: number): exerciseResult => {
+interface ExerciseInput {
+  exerciseHours: Array<number>,
+  target: number,
+}
+
+const parseExerciseInput = (args: Array<string>): ExerciseInput => {
+  if ((process.argv.length < 4)) {
+    throw new Error('Provide at least two arguments: target day1 [day2 day3 ...]');
+  }
+
+  //target is the first argument from the command line, so
+  //the exerciseHours array starts from index 3
+  const target = Number(args[2]);
+  const exerciseHours = args.slice(3).map(arg => Number(arg));
+  const allElementsAreNumbers = exerciseHours.every(arg => !isNaN(arg));
+
+  //all array elements and target value are numbers?
+  if (allElementsAreNumbers && !isNaN(target)) {
+    return {
+        exerciseHours,
+        target,
+    }
+  } else {
+    throw new Error('all arguments must be numbers!')
+  }
+}
+
+const calculateExercises = (exerciseHours: Array<number>, target: number): ExerciseResult => {
   //number of days
   const periodLength = exerciseHours.length;
   //training days
@@ -44,4 +71,16 @@ const calculateExercises = (exerciseHours: Array<number>, target: number): exerc
   }
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+//console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+
+try {
+    const { exerciseHours, target } = parseExerciseInput(process.argv);
+    console.log(calculateExercises(exerciseHours, target));
+} catch (error: unknown) {
+    let errorMessage = 'Something went wrong.';
+
+    if (error instanceof Error) {
+        errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
+}
