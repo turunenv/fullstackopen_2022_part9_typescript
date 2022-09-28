@@ -8,7 +8,7 @@ const parseArguments = (args: Array<string>): BmiInput => {
   if (args.length > 4) {
     throw new Error('Too many arguments!');
   } else if (args.length < 4) {
-    throw new Error('Not enough arguments!')
+    throw new Error('Not enough arguments!');
   }
 
   //check that both input values were indeed numbers and were not coerced to NaN
@@ -16,11 +16,11 @@ const parseArguments = (args: Array<string>): BmiInput => {
     return {
       height: Number(args[2]),
       weight: Number(args[3]),
-    }
+    };
   } else {
     throw new Error('Provided values must be numbers!');
   }
-}
+};
 
 export const calculateBmi = (height: number, weight: number): string => {
   const heightInMeters = height / 100;
@@ -39,7 +39,7 @@ export const calculateBmi = (height: number, weight: number): string => {
   }
 
   return feedback;
-}
+};
 
 //console.log(calculateBmi(180,74));
 

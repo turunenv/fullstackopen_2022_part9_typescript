@@ -5,14 +5,14 @@ const app = express();
 
 app.get("/hello", (_req, res) => {
   res.status(200).send("Hello Full Stack!");
-})
+});
 
 app.get("/bmi", (req, res) => {
   try {
     const { height, weight } = req.query;
   
     //validate the query string parameters
-    if (Number.isNaN(Number(height)) || Number.isNaN(Number(weight))) {
+    if (!height || !weight || Number.isNaN(Number(height)) || Number.isNaN(Number(weight))) {
       throw Error;
     } 
 
@@ -21,11 +21,11 @@ app.get("/bmi", (req, res) => {
   } catch {
       res.status(400).json({ error: "malformatted parameters" });
   }
-})
+});
 
 
 const PORT = 3001;
 
 app.listen(PORT, () => {
   console.log(`app running on port ${PORT}`);
-}) 
+}); 

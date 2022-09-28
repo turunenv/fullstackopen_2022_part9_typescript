@@ -29,11 +29,11 @@ const parseExerciseInput = (args: Array<string>): ExerciseInput => {
     return {
         exerciseHours,
         target,
-    }
+    };
   } else {
-    throw new Error('all arguments must be numbers!')
+    throw new Error('all arguments must be numbers!');
   }
-}
+};
 
 const calculateExercises = (exerciseHours: Array<number>, target: number): ExerciseResult => {
   //number of days
@@ -68,8 +68,8 @@ const calculateExercises = (exerciseHours: Array<number>, target: number): Exerc
     ratingDescription,
     target,
     average, 
-  }
-}
+  };
+};
 
 //console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
 
