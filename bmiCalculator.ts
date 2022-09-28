@@ -5,24 +5,24 @@ interface BmiInput {
 
 const parseArguments = (args: Array<string>): BmiInput => {
   //check if two arguments were given from the command line
-  if (process.argv.length > 4) {
+  if (args.length > 4) {
     throw new Error('Too many arguments!');
-  } else if (process.argv.length < 4) {
+  } else if (args.length < 4) {
     throw new Error('Not enough arguments!')
   }
 
   //check that both input values were indeed numbers and were not coerced to NaN
-  if (!isNaN(Number(process.argv[2])) && !isNaN(Number(process.argv[3]))) {
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
-      height: Number(process.argv[2]),
-      weight: Number(process.argv[3]),
+      height: Number(args[2]),
+      weight: Number(args[3]),
     }
   } else {
     throw new Error('Provided values must be numbers!');
   }
 }
 
-const calculateBmi = (height: number, weight: number): string => {
+export const calculateBmi = (height: number, weight: number): string => {
   const heightInMeters = height / 100;
   
   const bmi = weight / heightInMeters**2;
@@ -54,3 +54,4 @@ try {
     }
     console.log(errorMessage);
 }
+
